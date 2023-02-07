@@ -1,7 +1,8 @@
-FROM python:3
+FROM python:3.8
 WORKDIR /app
-COPY . .
+COPY . /app
 ENV FLASK_APP=flask-app.py
 EXPOSE 5000
 RUN pip install flask
-CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]
+RUN pip install --no-cache-dir
+CMD ["flask", "run", "--host=0.0.0.0"]
