@@ -12,6 +12,17 @@ pipeline {
                 sh "docker run -d -p 5000:5000 myflaskapp"
             }
         }*/
+        stage('aws credentials') {
+            steps {
+                withCredentials([string(credentialsId: 'aws-credentials', variable: 'AWS_ACCESS_KEY_ID'),
+                                 string(credentialsId: 'aws-credentials', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh '''
+                        echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
+                        echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
+                    '''
+                }
+            }
+        }
         stage('push to ECR') {
             steps {
                 sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 266339035537.dkr.ecr.us-east-1.amazonaws.com"
