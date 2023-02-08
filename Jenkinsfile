@@ -2,9 +2,9 @@
 pipeline {
     agent { docker { image 'maven:3.8.7-eclipse-temurin-11' } }
     stages {
-        stage('build') {
+        stage('docker build') {
             steps {
-                sh 'mvn --version'
+                sh "docker build -t myflaskapp ."
             }
         }
     }
