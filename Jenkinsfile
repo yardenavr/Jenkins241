@@ -36,13 +36,11 @@ pipeline {
                         ssh ubuntu@54.173.242.4
                         echo "Successfully connected to flask server"
                     '''
+                    sh "aws ecr describe-repositories"
+                    sh "aws ecr describe-images --repository-name repo-flask-app"
+                    sh "docker pull 266339035537.dkr.ecr.us-east-1.amazonaws.com/repo-flask-app:latest"
                 }
              }
-            steps {
-                sh "aws ecr describe-repositories"
-                sh "aws ecr describe-images --repository-name repo-flask-app"
-                sh "docker pull 266339035537.dkr.ecr.us-east-1.amazonaws.com/repo-flask-app:latest"
-            }
         }
         stage('docker run') {
              steps {
@@ -51,12 +49,9 @@ pipeline {
                         ssh ubuntu@54.173.242.4
                         echo "Successfully connected to flask server"
                     '''
+                    sh "docker run -d -p 5000:5000 266339035537.dkr.ecr.us-east-1.amazonaws.com/repo-flask-app:latest"
                 }
              }
-            steps {
-                sh "docker run -d -p 5000:5000 266339035537.dkr.ecr.us-east-1.amazonaws.com/repo-flask-app:latest"
-            }
-        }
         }
     }
 }
