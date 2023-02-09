@@ -57,5 +57,6 @@ pipeline {
                 sh "docker run -d -p 5000:5000 266339035537.dkr.ecr.us-east-1.amazonaws.com/repo-flask-app:latest"
             }
         }
+        }
     }
 }
