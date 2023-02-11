@@ -31,9 +31,9 @@ pipeline {
         }
         stage('pull from ECR') {
             steps {
-                sshAgent(['devops.pem']) {
+                sshagent(credentials: ['devops.pem']) {
                     sh '''
-                        ssh ubuntu@54.173.242.4
+                        ssh ubuntu@3.87.198.138
                         echo "Successfully connected to flask server"
                     '''
                     sh "aws ecr describe-repositories"
@@ -44,9 +44,9 @@ pipeline {
         }
         stage('docker run on flask app') {
              steps {
-                sshAgent(['devops.pem']) {
+                sshagent(credentials: ['devops.pem']) {
                     sh '''
-                        ssh ubuntu@54.173.242.4
+                        ssh ubuntu@3.87.198.138
                         echo "Successfully connected to flask server"
                     '''
                     sh "docker run -d -p 5000:5000 266339035537.dkr.ecr.us-east-1.amazonaws.com/repo-flask-app:latest"
