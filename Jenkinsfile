@@ -42,7 +42,7 @@ pipeline {
                 }
              }
         }
-        stage('docker run') {
+        stage('docker run on flask app') {
              steps {
                 sshAgent(['devops.pem']) {
                     sh '''
