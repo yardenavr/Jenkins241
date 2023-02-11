@@ -34,6 +34,7 @@ pipeline {
                 sshagent(credentials: ['devops.pem']) {
                     sh '''
                         ssh -o StrictHostKeyChecking=no ubuntu@3.87.198.138
+                        ls
                         echo "Successfully connected to flask server"
                     '''
                     sh "aws ecr describe-repositories"
