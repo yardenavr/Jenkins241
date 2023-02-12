@@ -11,7 +11,7 @@ pipeline {
             steps {
                 sh "docker run -d -p 5000:5000 repo-flask-app"
             }
-        }*/
+        }
         stage('aws credentials') {
             steps {
                 withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
@@ -28,7 +28,7 @@ pipeline {
                 sh "docker tag repo-flask-app:latest 266339035537.dkr.ecr.us-east-1.amazonaws.com/repo-flask-app:latest"
                 sh "docker push 266339035537.dkr.ecr.us-east-1.amazonaws.com/repo-flask-app:latest"
             }
-        }
+        }*/
         stage('pull from ECR') {
             steps {
                 sshagent(credentials: ['devops.pem']) {
