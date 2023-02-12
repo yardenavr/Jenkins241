@@ -6,12 +6,12 @@ pipeline {
             steps {
                 sh "docker build -t repo-flask-app ."
             }
-        }
+        }/*
         stage('docker run') {
             steps {
                 sh "docker run -d -p 5000:5000 repo-flask-app"
             }
-        }
+        }*/
         stage('aws credentials') {
             steps {
                 withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
