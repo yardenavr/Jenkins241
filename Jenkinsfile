@@ -32,23 +32,14 @@ pipeline {
         stage('pull from ECR') {
             steps {
                 sshagent(credentials: ['devops.pem']) {
-                    sh '''
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.87.198.138
-                        'ls
-                        echo "Successfully connected to flask server"
-                        docker pull 266339035537.dkr.ecr.us-east-1.amazonaws.com/repo-flask-app:latest'
-                    '''
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@3.87.198.138 'echo "Successfully connected to flask server" && docker pull 266339035537.dkr.ecr.us-east-1.amazonaws.com/repo-flask-app:latest'"
                 }
              }
         }
         stage('docker run on flask app') {
              steps {
                 sshagent(credentials: ['devops.pem']) {
-                    sh '''
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.87.198.138
-                        'echo "Successfully connected to flask server"
-                        docker run -d -p 5000:5000 266339035537.dkr.ecr.us-east-1.amazonaws.com/repo-flask-app:latest'
-                    '''
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@3.87.198.138 'echo "Successfully connected to flask server" && docker run -d -p 5000:5000 266339035537.dkr.ecr.us-east-1.amazonaws.com/repo-flask-app:latest'"
                 }
              }
         }
